@@ -1,7 +1,9 @@
+import { combineReducers } from "redux";
+
 const ADD_BIRD = "ADD_BIRD";
 const INCREMENT_BIRD = "INCREMENT_BIRD";
 
-//action
+//add bird action
 export function addBird(bird) {
   return {
     type: ADD_BIRD,
@@ -9,6 +11,7 @@ export function addBird(bird) {
   };
 }
 
+//increment action
 export function incrementBird(bird) {
   return {
     type: INCREMENT_BIRD,
@@ -22,6 +25,7 @@ const defaultBirds = [
     views: 1
   }
 ];
+
 //reducer accepts state and action
 function birds(state = defaultBirds, action) {
   switch (action.type) {
@@ -33,7 +37,22 @@ function birds(state = defaultBirds, action) {
           views: 1
         }
       ];
+    case INCREMENT_BIRD:
+      const bird = state.find((b) => action.bird === b.name);
+      const birds = state.filter((b) => action.bird !== b.name);
+      return [
+        ...birds,
+        {
+          ...bird,
+          views: bird.views + 1
+        }
+      ];
     default:
       return state;
   }
 }
+
+const birdApp = combineReducers({
+  birds
+});
+export default birdApp;
