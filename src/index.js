@@ -2,17 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
+import birdApp from "../src/store/birds/birds";
 
 import App from "./App";
 
-const store = createStore(() => ({
-  birds: [
-    {
-      name: "bird",
-      views: "1"
-    }
-  ]
-}));
+const store = createStore(birdApp);
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
